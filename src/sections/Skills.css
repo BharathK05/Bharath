@@ -1,0 +1,66 @@
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1px;
+  /* The container matches the cards so the empty cell in the last row does not
+     read as a hole; the 1px gaps are drawn by each card's own hairlines. */
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.skillgroup {
+  position: relative;
+  padding: clamp(1.35rem, 3vw, 1.85rem);
+  background: var(--bg-card);
+  box-shadow: 1px 0 0 var(--line), 0 1px 0 var(--line);
+  transition: background-color 0.4s var(--ease);
+}
+
+.skillgroup:hover {
+  background: var(--bg-inset);
+}
+
+/* A hairline that draws in red along the top edge on hover. */
+.skillgroup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.skillgroup:hover::before {
+  transform: scaleX(1);
+}
+
+.skillgroup__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.skillgroup__num {
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+}
+
+.skillgroup__title {
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.skillgroup__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}

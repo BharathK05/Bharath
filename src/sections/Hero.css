@@ -1,0 +1,317 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding-top: 112px;
+  padding-bottom: 3rem;
+  overflow: hidden;
+}
+
+/* A very soft graphite wash behind the visual side. */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 62%;
+  height: 90%;
+  background: radial-gradient(
+    ellipse at 40% 40%,
+    color-mix(in srgb, var(--ink) 5%, transparent),
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+/* Portrait left, copy right. The order is done in CSS rather than in the
+   markup so the <h1> still comes first in the document for screen readers
+   and for anything reading the page without styles. */
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  flex: 1;
+}
+
+.hero__copy {
+  order: 2;
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.6rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  animation: hero-in 0.8s var(--ease-out) both;
+}
+
+.hero__status {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 0 var(--red-soft);
+  animation: hero-ping 2.8s ease-out infinite;
+}
+
+@keyframes hero-ping {
+  0% {
+    box-shadow: 0 0 0 0 var(--red-soft);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px rgba(225, 6, 0, 0);
+  }
+}
+
+.hero__name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.28em;
+  /* A sentence is longer than a name, so it sits a step smaller. */
+  font-size: clamp(2.2rem, 6.6vw, 4.4rem);
+  font-weight: 300;
+  letter-spacing: -0.032em;
+  line-height: 1.02;
+}
+
+.hero__word {
+  display: inline-block;
+  animation: hero-word 1s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 90ms + 80ms);
+}
+
+/* The one highlighted word: heavier, with the light coming off the letterforms
+   themselves rather than off a block behind them. Stacked text-shadows make the
+   halo hug the outline of each glyph and fall away with distance.
+
+   The animation list is redeclared here so the glow can breathe alongside the
+   word's own entrance animation — each gets its own delay. */
+
+.hero__word--accent {
+  font-weight: 600;
+  color: #fff;
+  text-shadow:
+    0 0 5px rgba(225, 6, 0, 0.5),
+    0 0 12px rgba(225, 6, 0, 0.38),
+    0 0 26px rgba(225, 6, 0, 0.24);
+  animation:
+    hero-word 1s var(--ease-out) both,
+    accent-glow 4.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 90ms + 80ms), 1.2s;
+}
+
+@keyframes accent-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px rgba(225, 6, 0, 0.5),
+      0 0 12px rgba(225, 6, 0, 0.38),
+      0 0 26px rgba(225, 6, 0, 0.24);
+  }
+  50% {
+    text-shadow:
+      0 0 6px rgba(225, 6, 0, 0.72),
+      0 0 18px rgba(225, 6, 0, 0.55),
+      0 0 40px rgba(225, 6, 0, 0.34);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__word--accent {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The caret.
+
+   It does not simply blink in. It runs an F1 start sequence first: five lights
+   come on one at a time from the bottom, hold, and then go out together — and
+   the moment they do, the caret starts its ordinary terminal blink. You only
+   ever catch it once, on load, which is the point.
+   --------------------------------------------------------------------------- */
+
+.hero__caret {
+  display: inline-block;
+  width: 0.055em;
+  min-width: 3px;
+  height: 0.74em;
+  margin-left: 0.1em;
+  vertical-align: -0.04em;
+  background: var(--red);
+  box-shadow: 0 0 10px rgba(225, 6, 0, 0.45);
+  transform-origin: bottom;
+  animation:
+    caret-lights 1.9s steps(1, end) 0.75s backwards,
+    caret-blink 1.1s step-end 2.65s infinite;
+}
+
+/* Five lights on, hold, lights out. */
+@keyframes caret-lights {
+  0%,
+  9% {
+    transform: scaleY(0);
+  }
+  10%,
+  19% {
+    transform: scaleY(0.2);
+  }
+  20%,
+  29% {
+    transform: scaleY(0.4);
+  }
+  30%,
+  39% {
+    transform: scaleY(0.6);
+  }
+  40%,
+  49% {
+    transform: scaleY(0.8);
+  }
+  50%,
+  86% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  87%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* No sequence, no blink — just a steady caret. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__caret {
+    animation: none;
+  }
+}
+
+@keyframes hero-word {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+}
+
+.hero__role {
+  margin-top: 1.1rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--red);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  animation: hero-in 0.9s var(--ease-out) 0.32s both;
+}
+
+.hero__statement {
+  margin-top: 2rem;
+  max-width: 34rem;
+  font-size: clamp(1.02rem, 1.6vw, 1.17rem);
+  color: var(--ink-soft);
+  animation: hero-in 0.9s var(--ease-out) 0.44s both;
+}
+
+.hero__personality {
+  margin-top: 0.85rem;
+  max-width: 34rem;
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+  animation: hero-in 0.9s var(--ease-out) 0.54s both;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 2.4rem;
+  animation: hero-in 0.9s var(--ease-out) 0.66s both;
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.hero__visual {
+  order: 1;
+  position: relative;
+  z-index: 0;
+}
+
+/* Footer strip of the hero */
+
+.hero__foot {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  animation: hero-in 0.9s var(--ease-out) 0.9s both;
+}
+
+.hero__rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), transparent 70%);
+}
+
+.hero__foot-meta {
+  color: var(--ink-faint);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: auto;
+    padding-top: 128px;
+    padding-bottom: 4rem;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  /* Stacked: name and statement come first, the portrait follows. */
+  .hero__copy {
+    order: 1;
+  }
+
+  .hero__visual {
+    order: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

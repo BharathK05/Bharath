@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:5173/src/styles/global.css)",
+      "Bash(curl -s -o /dev/null -w \"bitmoji:%{http_code} %{content_type}\\\\n\" http://localhost:5173/bitmoji.png)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(git --version)",
+      "Bash(git config *)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "PowerShell($gh = Get-Command gh -ErrorAction SilentlyContinue; if \\($gh\\) { \"gh: $\\($gh.Source\\)\" } else { \"gh: not installed\" }; \"--- credential manager ---\"; $gcm = Get-Command git-credential-manager -ErrorAction SilentlyContinue; if \\($gcm\\) { \"GCM: $\\($gcm.Source\\)\" } else { \"GCM: not on PATH\" }; \"--- git remote test ---\"; git ls-remote https://github.com/BharathK05/Bharath.git 2>&1 | Select-Object -First 6)",
+      "Bash(git ls-remote *)",
+      "Bash(echo \"exit=$?\")"
+    ]
+  }
+}

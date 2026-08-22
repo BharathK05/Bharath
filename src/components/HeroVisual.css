@@ -1,0 +1,115 @@
+.hv {
+  margin: 0;
+  width: 100%;
+}
+
+.hv__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Draw-in of the grey signal trace */
+.hv__trace {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: hv-draw 2.2s var(--ease-out) 0.25s forwards;
+}
+
+/* The red racing line draws a beat later, so it reads as an overlay */
+.hv__line {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  animation: hv-draw 2.4s var(--ease-out) 0.75s forwards;
+}
+
+@keyframes hv-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hv__dot {
+  opacity: 0;
+  animation: hv-pop 0.6s var(--ease-out) forwards;
+}
+
+@keyframes hv-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hv__dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.hv__apex {
+  animation: hv-pulse 2.6s ease-in-out 2.4s infinite;
+}
+
+@keyframes hv-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hv__wave rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hv-wave 3.6s ease-in-out infinite;
+}
+
+@keyframes hv-wave {
+  0%,
+  100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.hv__meta {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.18em;
+  fill: var(--ink-faint);
+  opacity: 0;
+  animation: hv-fade 1s var(--ease) 1.6s forwards;
+}
+
+.hv__meta--red {
+  fill: var(--red);
+  opacity: 0;
+  animation: hv-fade 1s var(--ease) 2.2s forwards;
+}
+
+@keyframes hv-fade {
+  to {
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hv__trace,
+  .hv__line {
+    stroke-dashoffset: 0;
+  }
+
+  .hv__dot,
+  .hv__meta,
+  .hv__meta--red {
+    opacity: 1;
+  }
+}

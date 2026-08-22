@@ -1,0 +1,120 @@
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+}
+
+.about__body {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.about__lead {
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  color: var(--ink);
+  max-width: 30ch;
+}
+
+.about__p {
+  max-width: 62ch;
+  color: var(--ink-mute);
+  font-size: 1rem;
+}
+
+/* Telemetry readout card */
+
+.readout {
+  position: relative;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.readout::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--red), transparent 65%);
+}
+
+.readout__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.readout__delta {
+  color: var(--red);
+  opacity: 0.75;
+}
+
+.readout__list {
+  margin: 0;
+  display: grid;
+  gap: 0.1rem;
+}
+
+.readout__row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.readout__row:last-child {
+  border-bottom: none;
+}
+
+.readout__row dt {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.readout__row dd {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+
+.readout__interests {
+  font-family: var(--font-mono);
+  font-size: 0.78rem !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink) !important;
+}
+
+.readout__trace {
+  margin-top: 1rem;
+  height: 40px;
+  opacity: 0.7;
+}
+
+.readout__trace svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,118 @@
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+}
+
+.contact__message {
+  max-width: 42ch;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-weight: 300;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.contact__links {
+  display: grid;
+  gap: 1.35rem;
+  margin-top: 2.25rem;
+}
+
+.contact__links li {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.contact__links a {
+  overflow-wrap: anywhere;
+}
+
+/* Form */
+
+.form {
+  display: grid;
+  gap: 1.15rem;
+  padding: clamp(1.35rem, 3vw, 2rem);
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.form__row {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.form__row label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.form__row input,
+.form__row textarea {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  background: var(--bg-inset);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  font-size: 0.94rem;
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.form__row textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.form__row input:hover,
+.form__row textarea:hover {
+  border-color: var(--ink-faint);
+}
+
+.form__row input:focus,
+.form__row textarea:focus {
+  outline: none;
+  border-color: var(--ink-mute);
+  background: var(--bg-raised);
+}
+
+.form__row input:focus-visible,
+.form__row textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 1px;
+}
+
+.form__row [aria-invalid='true'] {
+  border-color: var(--red-soft);
+}
+
+.form__err {
+  font-size: 0.78rem;
+  color: var(--red);
+}
+
+.form__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.35rem;
+}
+
+.form__note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 860px) {
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
